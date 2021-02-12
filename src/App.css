@@ -1,0 +1,9 @@
+body {
+    padding-top: 80px;
+}
+
+:root {
+    --mainDark: #0e1114;
+    --mainWhite: #ffff;
+    
+}
