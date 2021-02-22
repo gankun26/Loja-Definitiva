@@ -14,20 +14,20 @@ export default function Pedidos() {
 });
 
   const controleMudanca =  (evento) => {
-      console.log(evento.target.value)
-      console.log(form)
+      
+      
       setForm({
           ...form,
           [evento.target.id]: evento.target.value
       })
-      console.log(form);
+      
   }
 
   const controleEnvio = (evento) => { 
       evento.preventDefault();
-      console.log("submit")
+      
       const preco_final = parseFloat(form.valor) * parseFloat(form.quantidade);
-      console.log(preco_final);
+      
       document.getElementById("preco_final").value = `R$ ${preco_final}`;
   }
 

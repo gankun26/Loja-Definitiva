@@ -4,11 +4,13 @@ import { Container, Row} from "react-bootstrap"
 import  {useSelector, useDispatch} from 'react-redux'
 import axios from 'axios'
 
+//O componente Produto esta sendo renderizado com SSR
+
 export default function Produtos () {
     const produtosreducer = useSelector(state => state.produtos.dados)
     const [prod, setProd] = useState(produtosreducer) 
     const [filtro, setFiltro] = useState(false)
-    console.log("reducer",produtosreducer)
+    
     const dispatch = useDispatch()
 
      
@@ -18,7 +20,7 @@ export default function Produtos () {
      }
 
      const conn = () => {
-         axios.get('http://localhost:4000/produtos')
+         axios.get('http://localhost:4000/Produtos')
          .then(res => dispatch({type: 'EXIBIR', payload: res.data}))
      }
      useEffect(conn, [produtosreducer])
@@ -60,7 +62,6 @@ export default function Produtos () {
             </Row>
         </Container>  
 
-        
         </div>
     )
 }

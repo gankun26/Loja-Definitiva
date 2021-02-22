@@ -17,8 +17,8 @@ export default function Produto(props) {
         onMouseOver={show_info} onMouseOut={hide_info}>
             <img src={require(`./img/${props.dados.imagem}`).default} alt="Imagem de Produtos" />
             <figcaption>
-                <p className="nome-prod">
-                    {props.dados.nome}
+                <p className="descricao">
+                    {props.dados.descricao}
                 </p>
                 <p className="precofinal-prod">
                     R$ {props.dados.preco}

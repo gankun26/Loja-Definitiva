@@ -1,22 +1,43 @@
 const express = require('express')
-const mysql = require('mysql')
-const cors = require('cors')
 const app = express()
-const conn = mysql.createConnection({    
-     host: 'localhost',
-     user: 'root',
-     password: '',
-     database:'asfeletro'
-    })
+const mongoose = require('mongoose')
+const Schema = mongoose.Schema
+const cors = require('cors')
 
-     app.use(cors())
+app.use(express.json())
+app.use(cors())
+app.use(express.static('./build'))
 
-    app.listen(4000, ()=>{
-        console.log("servidor rodando")
-    })
+// CONEXAO
+mongoose.connect("mongodb://localhost/asfeletro",{
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+})
 
-    app.get("/produtos", (req, res, next)=>{
-           conn.query(`SELECT * FROM produto`, (error, result)=> {
-               res.json(result)
-           } )
-    })
+//MODEL
+const Produtos = new Schema({
+    id : {type: Number},
+    nome : {type: String},
+    img : {type: String},
+    valor : {type: Number},
+    categoria : {type: String},
+    localimg : {type: String}
+})
+mongoose.model("produtos", Produtos);
+
+//CONTROLLER
+const Collection = mongoose.model('produtos')
+
+app.get('/produtos', async (req, res, next)=> {
+  const response = await Collection.find()
+  const dados = await response
+
+  res.json(dados)
+})
+
+//O componente Produto esta sendo renderizado com SSR
+
+app.listen(4000, ()=> {
+    console.log('Link da API: http://localhost:4000/Produtos')
+    console.log('Link da aplicação: http://localhost:4000/')
+})
